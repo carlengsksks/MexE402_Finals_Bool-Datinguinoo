@@ -1,0 +1,12 @@
+names:
+- Volleyball-Ball
+nc: 1
+roboflow:
+  license: CC BY 4.0
+  project: volleyballgame
+  url: https://universe.roboflow.com/bogart/volleyballgame/dataset/2
+  version: 2
+  workspace: bogart
+test: /content/VolleyballGame-2/test/images
+train: /content/VolleyballGame-2/train/images
+val: /content/VolleyballGame-2/valid/images
