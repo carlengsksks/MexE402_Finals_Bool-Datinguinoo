@@ -1,24 +1,24 @@
 # MexE402_Finals_Bool-Datinguinoo
 # Tracking a Ball in a Video
 Use the HSV-based object detection code to track a colored ball in a recorded video.
-## Ball tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz
+## Ball tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz🏐📹
 
-### I. Introduction
+### I. Introduction✍🏻
 Tracking objects in videos is a fundamental task in computer vision, with a wide range of applications, including surveillance, sports analysis, and robotics. In sports analysis, particularly volleyball, accurately tracking a ball's movement is crucial for understanding gameplay and improving overall performance.
 
 This project focuses on ball tracking in a volleyball match between Choco Mucho and Petro Gazz. The task involves identifying and following the ball throughout the video, overcoming challenges such as rapid movements, occlusions, and similarly colored elements in the scene. Accurate ball tracking provides insights into play strategies, ball trajectories, and match statistics, offering valuable tools for coaches, analysts, and fans.
 
-### II. Abstract
+### II. Abstract🎯
 This project aims to develop a computer vision-based system to track the volleyball during a match between Choco Mucho and Petro Gazz. The primary objective is to accurately identify and follow the ball throughout the video, addressing challenges such as rapid motion, occlusions, and visually similar objects.
 
 The approach involves preprocessing video frames to enhance visual features, applying detection models for ball localization, and employing tracking algorithms to maintain continuity. YOLO (You Only Look Once) is used for detection to achieve optimal results.
 
 The expected outcome is a robust and efficient ball tracking system capable of providing accurate and continuous ball trajectories throughout the match. This has potential applications in sports analytics, enabling coaches and analysts to derive meaningful insights into game strategies, player performance, and match statistics.
 
-### III. Project Methods
+### III. Project Methods📝
 Here are the step-by-step process to achieve our goal:
 
-### 1. Import all necessary libraries
+### 1. Import all necessary libraries📥
 
 ```python
 !nvidia-smi
@@ -66,7 +66,7 @@ dataset = version.download("yolov8")
 <img width="1051" alt="Screen Shot 2024-12-12 at 19 28 18" src="https://github.com/user-attachments/assets/75dc5112-5a52-491e-8881-f30b74bd4bde" />
 <img width="1051" alt="Screen Shot 2024-12-12 at 19 28 35" src="https://github.com/user-attachments/assets/a573252f-5074-459d-8726-1bc456749895" />
 
-### 2. Create Visualization
+### 2. Create Visualization🖌️
 
 ```python
 Image(filename=f'/content/runs/detect/train/confusion_matrix.png')
@@ -78,7 +78,7 @@ Image(filename=f'/content/runs/detect/train/results.png')
 ```
 ![GRAPH](https://github.com/user-attachments/assets/b5cc3f5b-58ac-4f78-8341-fff3a3256701)
 
-### 3. Validate a Trained Object Detection Model
+### 3. Validate a Trained Object Detection Model🔍🦾
 
 ```python
 !yolo task=detect mode=val model=/content/runs/detect/train/weights/best.pt data={dataset.location}/data.yaml
@@ -90,7 +90,7 @@ Image(filename=f'/content/runs/detect/train/results.png')
 ```
 <img width="1051" alt="Screen Shot 2024-12-12 at 20 01 07" src="https://github.com/user-attachments/assets/6dbb4ea0-630d-4bba-a14e-29af75936009" />
 
-### 4. Create Path and Display Output
+### 4. Create Path and Display Output👣🖼️
 
 ```python
 import glob
@@ -106,7 +106,7 @@ for image_path in glob.glob('/content/runs/detect/predict/*.jpg'):
 ![V4](https://github.com/user-attachments/assets/6ca416c5-d43d-4d17-9b6d-56015419634a)
 ![V5](https://github.com/user-attachments/assets/f9ee902e-f05b-4d7d-9e3a-d9d254f28499)
 
-### 5. Upload Video and Import Necessary Libraries in Google Colab
+### 5. Upload Video and Import Necessary Libraries in Google Colab📚📤
 
 ```python
 from google.colab import files
@@ -276,11 +276,11 @@ for file_path in file_paths:
     else:
         print(f"Warning: '{file_path}' not found.")
 ```
-### IV. Conclusion
+### IV. Conclusion📑📌
 
 The project, Ball Tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz using YOLO in Google Colab, successfully demonstrates the application of computer vision techniques in sports analytics. Doing this project using HSV-based object detection using OpenCV is quite difficult to implement since the video contains similar color from the ball that we are going to detect so we decided to try a different approach which is YOLO. YOLO, or "You Only Look Once", is a real-time object detection algorithm that can identify and classify objects in a single pass of an image. It's a single-stage object detector that uses a convolutional neural network (CNN) to process images. Though we are still encountering errors in detection (detects something woth the same color), YOLO still had a very accurate detection of a moving ball. 
 
-### V. Additional Materials
+### V. Additional Materials📚
 
 ```python
 !nvidia-smi
@@ -481,7 +481,7 @@ for file_path in file_paths:
 
 ```
 
-### VI. References
+### VI. References🖇️
 https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov8-object-detection-on-custom-dataset.ipynb#scrollTo=D2YkphuiaE7_
 
 
