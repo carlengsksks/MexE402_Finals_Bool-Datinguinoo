@@ -18,10 +18,6 @@ The expected outcome is a robust and efficient ball tracking system capable of p
 ### III. Project Methods
 Here are the step-by-step process to achieve our goal:
 
-Video Preprocessing: Enhancing visual features in video frames.
-Detection: Using YOLO for ball localization in each frame.
-Tracking: Applying algorithms to ensure continuous ball tracking despite occlusions and rapid motion.
-
 ### 1. Import all necessary libraries
 
 ```python
