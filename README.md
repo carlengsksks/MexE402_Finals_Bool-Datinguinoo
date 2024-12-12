@@ -26,7 +26,6 @@ Tracking: Applying algorithms to ensure continuous ball tracking despite occlusi
 
 ```python
 !nvidia-smi
-
-<img width="838" alt="Screen Shot 2024-12-12 at 17 11 38" src="https://github.com/user-attachments/assets/054615ef-9292-4ab8-8f22-da47705af092" />
-
+```
+<img width="838" alt="Screen Shot 2024-12-12 at 17 11 38" src="https://github.com/user-attachments/assets/c46577c0-0d37-47af-920b-f40b089e2540" />
 
