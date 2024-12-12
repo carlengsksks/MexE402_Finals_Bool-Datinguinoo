@@ -94,7 +94,7 @@ Image(filename=f'/content/runs/detect/train/results.png')
 ```
 <img width="1051" alt="Screen Shot 2024-12-12 at 20 01 07" src="https://github.com/user-attachments/assets/6dbb4ea0-630d-4bba-a14e-29af75936009" />
 
-### Create Path and Display Output
+### 4. Create Path and Display Output
 
 ```python
 import glob
@@ -110,5 +110,173 @@ for image_path in glob.glob('/content/runs/detect/predict/*.jpg'):
 ![V4](https://github.com/user-attachments/assets/6ca416c5-d43d-4d17-9b6d-56015419634a)
 ![V5](https://github.com/user-attachments/assets/f9ee902e-f05b-4d7d-9e3a-d9d254f28499)
 
+### 5. Upload Video and Import Necessary Libraries in Google Colab
+
+```python
+from google.colab import files
+uploaded = files.upload()
+```
+<img width="1058" alt="Screen Shot 2024-12-12 at 21 03 11" src="https://github.com/user-attachments/assets/d0a85a14-4627-4881-8a5d-17812d6f071f" />
+
+```python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+from ultralytics import YOLO
+
+# Load the pre-trained YOLOv8 model
+model = YOLO('/content/runs/detect/train/weights/best.pt')  # Replace with your model path
+
+# Function to draw bounding boxes
+def draw_boxes(img, results):
+    for box in results:
+        x1, y1, x2, y2 = map(int, box[:4])
+        conf = box[4]
+        cls = int(box[5])  # Class ID
+        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(
+            img,
+            f"Volleyball {cls}: {conf:.2f}",
+            (x1, y1 - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (0, 255, 0),
+            2,
+        )
+
+# Load your video
+cap = cv2.VideoCapture('Volleyball Game.m4v')
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Inference with YOLOv8
+    results = model(frame)
+
+    # Get bounding boxes (xyxy format) from the results
+    boxes = results[0].boxes.xyxy.cpu().numpy()  # Convert to numpy for easier handling
+    confidences = results[0].boxes.conf.cpu().numpy()  # Confidence scores
+    classes = results[0].boxes.cls.cpu().numpy()  # Class IDs
+
+    # Combine boxes, confidences, and classes
+    detections = np.column_stack((boxes, confidences, classes))
+
+    # Draw bounding boxes around detected objects
+    draw_boxes(frame, detections)
 
 
+  # Display the frame using matplotlib
+    plt.imshow(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    plt.title('Frame')
+    plt.show()
+
+cap.release()
+cv2.destroyAllWindows()
+
+```
+```python
+import torch
+import cv2
+import numpy as np
+from ultralytics import YOLO
+
+def draw_boxes(img, results):
+    for *xyxy, conf, cls in results:
+        x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
+        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(img, f"Volleyball: {conf:.2f}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+# Load the pre-trained YOLOv8 model
+model = YOLO('/content/runs/detect/train/weights/best.pt')
+
+# Load your video
+cap = cv2.VideoCapture('Volleyball Game.m4v')
+
+# Get video properties
+frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = cap.get(cv2.CAP_PROP_FPS)
+
+# Define the codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter('output_video.mp4', fourcc, fps, (frame_width, frame_height))
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Inference with YOLOv8
+    results = model(frame)
+
+    # Get bounding boxes
+    boxes = results[0].boxes.xyxy.cpu().numpy()
+    confidences = results[0].boxes.conf.cpu().numpy()
+    classes = results[0].boxes.cls.cpu().numpy()
+    detections = np.column_stack((boxes, confidences, classes))
+
+    # Draw bounding boxes around detected objects
+    draw_boxes(frame, detections)
+
+    # Write the frame to the output video
+    out.write(frame)
+
+cap.release()
+out.release()
+```
+```python
+from google.colab import drive
+# Mount Google Drive
+drive.mount('/content/drive')
+```
+```python
+import os
+import shutil
+
+
+
+# Specify the desired Google Drive folder path
+output_folder = '/content/drive/MyDrive/VolleyballTracking/'
+
+# Create the output folder if it doesn't exist
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+# Define source folders (replace with actual paths)
+source_folders = ["VolleyballGame-2","runs"]
+
+# Copy folders to Google Drive
+for source_folder in source_folders:
+    source_path = os.path.join(os.getcwd(), source_folder)
+    destination_path = os.path.join(output_folder, source_folder)
+    if os.path.exists(source_path):
+        shutil.copytree(source_path, destination_path)
+        print(f"Copied '{source_folder}' to Google Drive.")
+    else:
+        print(f"Warning: '{source_folder}' not found.")
+```
+```python
+import shutil
+
+output_folder = '/content/drive/MyDrive/VolleyballTracking/'
+file_paths = [
+    '/content/Volleyball Game.m4v',
+    '/content/yolo11n.pt',
+    '/content/yolov8m.pt',
+    '/content/output_video.mp4'
+
+]
+
+
+
+for file_path in file_paths:
+    if os.path.exists(file_path):
+        filename = os.path.basename(file_path)
+        destination_path = os.path.join(output_folder, filename)
+        shutil.copy(file_path, destination_path)
+        print(f"Copied '{filename}' to Google Drive.")
+    else:
+        print(f"Warning: '{file_path}' not found.")
+```
