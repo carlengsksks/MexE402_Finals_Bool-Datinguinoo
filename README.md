@@ -1,5 +1,6 @@
 # MexE402_Finals_Bool-Datinguinoo
 # Tracking a Ball in a Video
+Use the HSV-based object detection code to track a colored ball in a recorded video.
 ## Ball tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz
 
 ## Introduction
@@ -19,7 +20,7 @@ Here is the step-by-step processs on how we achieved the goal of this project.
 
 ### Import all necesarry libraries
 
-!nvidia-smi
+
 
 - Video Preprocessing
 
