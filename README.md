@@ -280,3 +280,13 @@ for file_path in file_paths:
     else:
         print(f"Warning: '{file_path}' not found.")
 ```
+### IV. Conclusion
+
+The project, Ball Tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz using YOLO in Google Colab, successfully demonstrates the application of computer vision techniques in sports analytics.
+
+### V. References
+https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov8-object-detection-on-custom-dataset.ipynb#scrollTo=D2YkphuiaE7_
+
+
+
+
