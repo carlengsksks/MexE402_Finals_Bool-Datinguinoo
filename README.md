@@ -278,9 +278,210 @@ for file_path in file_paths:
 ```
 ### IV. Conclusion
 
-The project, Ball Tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz using YOLO in Google Colab, successfully demonstrates the application of computer vision techniques in sports analytics.
+The project, Ball Tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz using YOLO in Google Colab, successfully demonstrates the application of computer vision techniques in sports analytics. Doing this project using HSV-based object detection using OpenCV is quite difficult to implement since the video contains similar color from the ball that we are going to detect so we decided to try a different approach which is YOLO. YOLO, or "You Only Look Once", is a real-time object detection algorithm that can identify and classify objects in a single pass of an image. It's a single-stage object detector that uses a convolutional neural network (CNN) to process images. Though we are still encountering errors in detection (detects something woth the same color), YOLO still had a very accurate detection of a moving ball. 
 
-### V. References
+### V. Additional Materials
+
+```python
+!nvidia-smi
+
+!pip install ultralytics
+
+from ultralytics import YOLO
+import os
+from IPython.display import display, Image
+from IPython import display
+display.clear_output()
+
+!yolo mode=checks
+
+!pip install roboflow
+
+from roboflow import Roboflow
+rf = Roboflow(api_key="r2tVeGW8kcAFzcMUF1St")
+project = rf.workspace("bogart").project("volleyballgame")
+version = project.version(2)
+dataset = version.download("yolov8")
+
+!yolo task=detect mode=train model=yolov8m.pt data={dataset.location}/data.yaml epochs=20 imgsz=640 plots=True
+
+Image(filename=f'/content/runs/detect/train/confusion_matrix.png')
+
+Image(filename=f'/content/runs/detect/train/results.png')
+
+!yolo task=detect mode=val model=/content/runs/detect/train/weights/best.pt data={dataset.location}/data.yaml
+
+!yolo task=detect mode=predict model=/content/runs/detect/train/weights/best.pt conf=0.25 source={dataset.location}/test/images save=True
+
+import glob
+from IPython.display import Image, display
+
+for image_path in glob.glob('/content/runs/detect/predict/*.jpg'):
+  display(Image(filename=image_path, width=600))
+  print("\n")
+
+from google.colab import files
+uploaded = files.upload()
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+from ultralytics import YOLO
+
+# Load the pre-trained YOLOv8 model
+model = YOLO('/content/runs/detect/train/weights/best.pt')  # Replace with your model path
+
+# Function to draw bounding boxes
+def draw_boxes(img, results):
+    for box in results:
+        x1, y1, x2, y2 = map(int, box[:4])
+        conf = box[4]
+        cls = int(box[5])  # Class ID
+        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(
+            img,
+            f"Volleyball {cls}: {conf:.2f}",
+            (x1, y1 - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (0, 255, 0),
+            2,
+        )
+
+# Load your video
+cap = cv2.VideoCapture('Volleyball Game.m4v')
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Inference with YOLOv8
+    results = model(frame)
+
+    # Get bounding boxes (xyxy format) from the results
+    boxes = results[0].boxes.xyxy.cpu().numpy()  # Convert to numpy for easier handling
+    confidences = results[0].boxes.conf.cpu().numpy()  # Confidence scores
+    classes = results[0].boxes.cls.cpu().numpy()  # Class IDs
+
+    # Combine boxes, confidences, and classes
+    detections = np.column_stack((boxes, confidences, classes))
+
+    # Draw bounding boxes around detected objects
+    draw_boxes(frame, detections)
+
+
+  # Display the frame using matplotlib
+    plt.imshow(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    plt.title('Frame')
+    plt.show()
+
+cap.release()
+cv2.destroyAllWindows()
+
+import torch
+import cv2
+import numpy as np
+from ultralytics import YOLO
+
+def draw_boxes(img, results):
+    for *xyxy, conf, cls in results:
+        x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
+        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.putText(img, f"Volleyball: {conf:.2f}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+# Load the pre-trained YOLOv8 model
+model = YOLO('/content/runs/detect/train/weights/best.pt')
+
+# Load your video
+cap = cv2.VideoCapture('Volleyball Game.m4v')
+
+# Get video properties
+frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = cap.get(cv2.CAP_PROP_FPS)
+
+# Define the codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter('output_video.mp4', fourcc, fps, (frame_width, frame_height))
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Inference with YOLOv8
+    results = model(frame)
+
+    # Get bounding boxes
+    boxes = results[0].boxes.xyxy.cpu().numpy()
+    confidences = results[0].boxes.conf.cpu().numpy()
+    classes = results[0].boxes.cls.cpu().numpy()
+    detections = np.column_stack((boxes, confidences, classes))
+
+    # Draw bounding boxes around detected objects
+    draw_boxes(frame, detections)
+
+    # Write the frame to the output video
+    out.write(frame)
+
+cap.release()
+out.release()
+
+from google.colab import drive
+# Mount Google Drive
+drive.mount('/content/drive')
+
+import os
+import shutil
+
+
+
+# Specify the desired Google Drive folder path
+output_folder = '/content/drive/MyDrive/VolleyballTracking/'
+
+# Create the output folder if it doesn't exist
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+# Define source folders (replace with actual paths)
+source_folders = ["VolleyballGame-2","runs"]
+
+# Copy folders to Google Drive
+for source_folder in source_folders:
+    source_path = os.path.join(os.getcwd(), source_folder)
+    destination_path = os.path.join(output_folder, source_folder)
+    if os.path.exists(source_path):
+        shutil.copytree(source_path, destination_path)
+        print(f"Copied '{source_folder}' to Google Drive.")
+    else:
+        print(f"Warning: '{source_folder}' not found.")
+
+import shutil
+
+output_folder = '/content/drive/MyDrive/VolleyballTracking/'
+file_paths = [
+    '/content/Volleyball Game.m4v',
+    '/content/yolo11n.pt',
+    '/content/yolov8m.pt',
+    '/content/output_video.mp4'
+
+]
+
+
+
+for file_path in file_paths:
+    if os.path.exists(file_path):
+        filename = os.path.basename(file_path)
+        destination_path = os.path.join(output_folder, filename)
+        shutil.copy(file_path, destination_path)
+        print(f"Copied '{filename}' to Google Drive.")
+    else:
+        print(f"Warning: '{file_path}' not found.")
+
+```
+
+### VI. References
 https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov8-object-detection-on-custom-dataset.ipynb#scrollTo=D2YkphuiaE7_
 
 
