@@ -16,13 +16,13 @@ The approach involves preprocessing video frames to enhance visual features, app
 The expected outcome is a robust and efficient ball tracking system capable of providing accurate and continuous ball trajectories throughout the match. This has potential applications in sports analytics, enabling coaches and analysts to derive meaningful insights into game strategies, player performance, and match statistics.
 
 ### III. Project Methods
-The project employs the following step-by-step process to achieve its goals:
+Here are the step-by-step process to achieve our goal:
 
 Video Preprocessing: Enhancing visual features in video frames.
 Detection: Using YOLO for ball localization in each frame.
 Tracking: Applying algorithms to ensure continuous ball tracking despite occlusions and rapid motion.
 
-### Import all necessary libraries
+### 1. Import all necessary libraries
 
 ```python
 !nvidia-smi
@@ -59,4 +59,22 @@ dataset = version.download("yolov8")
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 13 08" src="https://github.com/user-attachments/assets/c02d706d-7385-4b27-82b1-fe083ececbae" />
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 13 26" src="https://github.com/user-attachments/assets/87c7f894-c444-4934-9a43-1becf1f160fe" />
 
+```python
+!yolo task=detect mode=train model=yolov8m.pt data={dataset.location}/data.yaml epochs=20 imgsz=640 plots=True
+```
 
+<img width="1058" alt="Screen Shot 2024-12-12 at 19 09 31" src="https://github.com/user-attachments/assets/234adc20-a84e-4ca8-b252-6442450197b6" />
+<img width="1051" alt="Screen Shot 2024-12-12 at 19 10 04" src="https://github.com/user-attachments/assets/610c70d7-97cb-4461-b725-1d4d8286646e" />
+<img width="1232" alt="Screen Shot 2024-12-12 at 19 10 16" src="https://github.com/user-attachments/assets/1ab3320c-b1af-469d-b3db-d89d454c1865" />
+
+### 2. Create Visualization
+
+```python
+Image(filename=f'/content/runs/detect/train/confusion_matrix.png')
+```
+![CON](https://github.com/user-attachments/assets/8d69972e-cd6a-4391-b468-f942c8348e45)
+
+```python
+Image(filename=f'/content/runs/detect/train/results.png')
+```
+![GRAPH](https://github.com/user-attachments/assets/b5cc3f5b-58ac-4f78-8341-fff3a3256701)
