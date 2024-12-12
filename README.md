@@ -24,7 +24,8 @@ Tracking: Applying algorithms to ensure continuous ball tracking despite occlusi
 
 ### Import all necesarry libraries
 
-'''!nvidia-smi'''
+```python
+!nvidia-smi
 
 - Video Preprocessing
 
