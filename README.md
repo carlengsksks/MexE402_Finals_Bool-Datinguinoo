@@ -27,8 +27,6 @@ Tracking: Applying algorithms to ensure continuous ball tracking despite occlusi
 ```python
 !nvidia-smi
 
-- Video Preprocessing
+<img width="838" alt="Screen Shot 2024-12-12 at 17 11 38" src="https://github.com/user-attachments/assets/054615ef-9292-4ab8-8f22-da47705af092" />
 
-  - Import the volleyball match video.
-  - Convert video frames to a suitable format and resolution for processing.
-  - Apply noise reduction and image enhancement techniques to improve frame quality.
+
