@@ -81,3 +81,34 @@ Image(filename=f'/content/runs/detect/train/confusion_matrix.png')
 Image(filename=f'/content/runs/detect/train/results.png')
 ```
 ![GRAPH](https://github.com/user-attachments/assets/b5cc3f5b-58ac-4f78-8341-fff3a3256701)
+
+### 3. Validate a Trained Object Detection Model
+
+```python
+!yolo task=detect mode=val model=/content/runs/detect/train/weights/best.pt data={dataset.location}/data.yaml
+```
+<img width="1051" alt="Screen Shot 2024-12-12 at 20 00 50" src="https://github.com/user-attachments/assets/5e3ffed6-18af-4068-be80-a0feec63b638" />
+
+```python
+!yolo task=detect mode=predict model=/content/runs/detect/train/weights/best.pt conf=0.25 source={dataset.location}/test/images save=True
+```
+<img width="1051" alt="Screen Shot 2024-12-12 at 20 01 07" src="https://github.com/user-attachments/assets/6dbb4ea0-630d-4bba-a14e-29af75936009" />
+
+### Create Path and Display Output
+
+```python
+import glob
+from IPython.display import Image, display
+
+for image_path in glob.glob('/content/runs/detect/predict/*.jpg'):
+  display(Image(filename=image_path, width=600))
+  print("\n")
+```
+![V1](https://github.com/user-attachments/assets/45aef8ca-3b88-4572-adbc-c14573252ad2)
+![V2](https://github.com/user-attachments/assets/222a204b-7ffb-46a6-bb2e-d3ec7502efc1)
+![V3](https://github.com/user-attachments/assets/4e6bb46f-99c3-4ed1-9e1c-7cab645a4427)
+![V4](https://github.com/user-attachments/assets/6ca416c5-d43d-4d17-9b6d-56015419634a)
+![V5](https://github.com/user-attachments/assets/f9ee902e-f05b-4d7d-9e3a-d9d254f28499)
+
+
+
