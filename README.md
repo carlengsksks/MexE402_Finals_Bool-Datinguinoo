@@ -13,3 +13,16 @@ This project aims to develop a computer vision-based system for tracking the vol
 The approach involves preprocessing video frames to enhance visual features, applying detection models for ball localization, and employing tracking algorithms to ensure continuity. YOLO (You Only Look Once) is used for detection to achieve optimal results.
 
 The expected outcome of the project is a robust and efficient ball tracking system capable of providing accurate and continuous ball trajectories throughout the match. This has potential applications in sports analytics, allowing coaches and analysts to extract meaningful insights into game strategies, player performance, and match statistics.
+
+## Project Methods
+Here is the step-by-step processs on how we achieved the goal of this project.
+
+### Import all necesarry libraries
+
+!nvidia-smi
+
+- Video Preprocessing
+
+  - Import the volleyball match video.
+  - Convert video frames to a suitable format and resolution for processing.
+  - Apply noise reduction and image enhancement techniques to improve frame quality.
