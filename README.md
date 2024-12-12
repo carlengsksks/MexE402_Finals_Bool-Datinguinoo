@@ -22,7 +22,7 @@ Video Preprocessing: Enhancing visual features in video frames.
 Detection: Using YOLO for ball localization in each frame.
 Tracking: Applying algorithms to ensure continuous ball tracking despite occlusions and rapid motion.
 
-### Import all necesarry libraries
+### Import all necessary libraries
 
 ```python
 !nvidia-smi
