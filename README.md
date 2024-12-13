@@ -31,8 +31,6 @@ Here are the step-by-step process to achieve our goal:
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 11 58" src="https://github.com/user-attachments/assets/25c3d74a-5ec4-4766-8829-ff6eea08be24" />
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 12 24" src="https://github.com/user-attachments/assets/a9dd40ae-e8b7-4ee6-a81b-08f591c34948" />
 
-### 2. Import the Dataset from Roboflow
-
 ```python
 from ultralytics import YOLO
 import os
@@ -44,6 +42,8 @@ display.clear_output()
 ```
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 12 37" src="https://github.com/user-attachments/assets/bc01744d-474d-42f5-9b7c-586b9f603b1e" />
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 12 59" src="https://github.com/user-attachments/assets/c27e11d0-f2cf-4911-bc4c-4ba614a3117f" />
+
+### 2. Import the Dataset from Roboflow
 
 ```python
 !pip install roboflow
@@ -89,12 +89,12 @@ Image(filename=f'/content/runs/detect/train/results.png')
 ```
 <img width="1051" alt="Screen Shot 2024-12-12 at 20 00 50" src="https://github.com/user-attachments/assets/5e3ffed6-18af-4068-be80-a0feec63b638" />
 
+### 6. Interference and Create Path and Display Output👣🖼️
+
 ```python
 !yolo task=detect mode=predict model=/content/runs/detect/train/weights/best.pt conf=0.25 source={dataset.location}/test/images save=True
 ```
 <img width="1051" alt="Screen Shot 2024-12-12 at 20 01 07" src="https://github.com/user-attachments/assets/6dbb4ea0-630d-4bba-a14e-29af75936009" />
-
-### 6. Interference and Create Path and Display Output👣🖼️
 
 ```python
 import glob
