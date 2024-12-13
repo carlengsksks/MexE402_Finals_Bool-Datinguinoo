@@ -30,7 +30,9 @@ Here are the step-by-step process to achieve our goal:
 ```
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 11 58" src="https://github.com/user-attachments/assets/25c3d74a-5ec4-4766-8829-ff6eea08be24" />
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 12 24" src="https://github.com/user-attachments/assets/a9dd40ae-e8b7-4ee6-a81b-08f591c34948" />
+
 ### 2. Import the Dataset from Roboflow
+
 ```python
 from ultralytics import YOLO
 import os
