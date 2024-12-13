@@ -56,7 +56,9 @@ dataset = version.download("yolov8")
 ```
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 13 08" src="https://github.com/user-attachments/assets/c02d706d-7385-4b27-82b1-fe083ececbae" />
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 13 26" src="https://github.com/user-attachments/assets/87c7f894-c444-4934-9a43-1becf1f160fe" />
+
 ### 3. Train the Model
+
 ```python
 !yolo task=detect mode=train model=yolov8m.pt data={dataset.location}/data.yaml epochs=20 imgsz=640 plots=True
 ```
@@ -116,6 +118,8 @@ uploaded = files.upload()
 ```
 <img width="1058" alt="Screen Shot 2024-12-12 at 21 03 11" src="https://github.com/user-attachments/assets/d0a85a14-4627-4881-8a5d-17812d6f071f" />
 
+#### Track the ball using OpenCV and YOLOv8 model and output it as frames
+
 ```python
 import cv2
 import numpy as np
@@ -174,6 +178,8 @@ cap.release()
 cv2.destroyAllWindows()
 
 ```
+#### Track the ball using OpenCV and YOLOv8 model and output it as a video
+
 ```python
 import torch
 import cv2
