@@ -31,6 +31,8 @@ Here are the step-by-step process to achieve our goal:
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 11 58" src="https://github.com/user-attachments/assets/25c3d74a-5ec4-4766-8829-ff6eea08be24" />
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 12 24" src="https://github.com/user-attachments/assets/a9dd40ae-e8b7-4ee6-a81b-08f591c34948" />
 
+### 2. Import the Dataset from Roboflow
+
 ```python
 from ultralytics import YOLO
 import os
@@ -55,6 +57,8 @@ dataset = version.download("yolov8")
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 13 08" src="https://github.com/user-attachments/assets/c02d706d-7385-4b27-82b1-fe083ececbae" />
 <img width="1058" alt="Screen Shot 2024-12-12 at 17 13 26" src="https://github.com/user-attachments/assets/87c7f894-c444-4934-9a43-1becf1f160fe" />
 
+### 3. Train the Model
+
 ```python
 !yolo task=detect mode=train model=yolov8m.pt data={dataset.location}/data.yaml epochs=20 imgsz=640 plots=True
 ```
@@ -66,7 +70,7 @@ dataset = version.download("yolov8")
 <img width="1051" alt="Screen Shot 2024-12-12 at 19 28 18" src="https://github.com/user-attachments/assets/75dc5112-5a52-491e-8881-f30b74bd4bde" />
 <img width="1051" alt="Screen Shot 2024-12-12 at 19 28 35" src="https://github.com/user-attachments/assets/a573252f-5074-459d-8726-1bc456749895" />
 
-### 2. Create Visualization🖌️
+### 4. Create Visualization🖌️
 
 ```python
 Image(filename=f'/content/runs/detect/train/confusion_matrix.png')
@@ -78,7 +82,7 @@ Image(filename=f'/content/runs/detect/train/results.png')
 ```
 ![GRAPH](https://github.com/user-attachments/assets/b5cc3f5b-58ac-4f78-8341-fff3a3256701)
 
-### 3. Validate a Trained Object Detection Model🔍🦾
+### 5. Validate a Trained Object Detection Model🔍🦾
 
 ```python
 !yolo task=detect mode=val model=/content/runs/detect/train/weights/best.pt data={dataset.location}/data.yaml
@@ -90,7 +94,7 @@ Image(filename=f'/content/runs/detect/train/results.png')
 ```
 <img width="1051" alt="Screen Shot 2024-12-12 at 20 01 07" src="https://github.com/user-attachments/assets/6dbb4ea0-630d-4bba-a14e-29af75936009" />
 
-### 4. Create Path and Display Output👣🖼️
+### 6. Interference and Create Path and Display Output👣🖼️
 
 ```python
 import glob
@@ -106,13 +110,15 @@ for image_path in glob.glob('/content/runs/detect/predict/*.jpg'):
 ![V4](https://github.com/user-attachments/assets/6ca416c5-d43d-4d17-9b6d-56015419634a)
 ![V5](https://github.com/user-attachments/assets/f9ee902e-f05b-4d7d-9e3a-d9d254f28499)
 
-### 5. Upload Video and Import Necessary Libraries in Google Colab📚📤
+### 7. Upload Video and Import Necessary Libraries in Google Colab📚📤
 
 ```python
 from google.colab import files
 uploaded = files.upload()
 ```
 <img width="1058" alt="Screen Shot 2024-12-12 at 21 03 11" src="https://github.com/user-attachments/assets/d0a85a14-4627-4881-8a5d-17812d6f071f" />
+
+#### Track the ball using OpenCV and YOLOv8 model and output it as frames
 
 ```python
 import cv2
@@ -172,6 +178,8 @@ cap.release()
 cv2.destroyAllWindows()
 
 ```
+#### Track the ball using OpenCV and YOLOv8 model and output it as a video
+
 ```python
 import torch
 import cv2
