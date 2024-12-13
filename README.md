@@ -4,16 +4,16 @@ Use the HSV-based object detection code to track a colored ball in a recorded vi
 ## Ball tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz🏐📹
 
 ### I. Introduction✍🏻
-Tracking objects in videos is a fundamental task in computer vision, with a wide range of applications, including surveillance, sports analysis, and robotics. In sports analysis, particularly volleyball, accurately tracking a ball's movement is crucial for understanding gameplay and improving overall performance.
+  Tracking objects in videos is a fundamental task in computer vision, with a wide range of applications, including surveillance, sports analysis, and robotics. In sports analysis, particularly volleyball, accurately tracking a ball's movement is crucial for understanding gameplay and improving overall performance.
 
-This project focuses on ball tracking in a volleyball match between Choco Mucho and Petro Gazz. The task involves identifying and following the ball throughout the video, overcoming challenges such as rapid movements, occlusions, and similarly colored elements in the scene. Accurate ball tracking provides insights into play strategies, ball trajectories, and match statistics, offering valuable tools for coaches, analysts, and fans.
+  This project focuses on ball tracking in a volleyball match between Choco Mucho and Petro Gazz. The task involves identifying and following the ball throughout the video, overcoming challenges such as rapid movements, occlusions, and similarly colored elements in the scene. Accurate ball tracking provides insights into play strategies, ball trajectories, and match statistics, offering valuable tools for coaches, analysts, and fans.
 
 ### II. Abstract🎯
-This project aims to develop a computer vision-based system to track the volleyball during a match between Choco Mucho and Petro Gazz. The primary objective is to accurately identify and follow the ball throughout the video, addressing challenges such as rapid motion, occlusions, and visually similar objects.
+  This project aims to develop a computer vision-based system to track the volleyball during a match between Choco Mucho and Petro Gazz. The primary objective is to accurately identify and follow the ball throughout the video, addressing challenges such as rapid motion, occlusions, and visually similar objects.
 
-The approach involves preprocessing video frames to enhance visual features, applying detection models for ball localization, and employing tracking algorithms to maintain continuity. YOLO (You Only Look Once) is used for detection to achieve optimal results.
+  The approach involves preprocessing video frames to enhance visual features, applying detection models for ball localization, and employing tracking algorithms to maintain continuity. YOLO (You Only Look Once) is used for detection to achieve optimal results.
 
-The expected outcome is a robust and efficient ball tracking system capable of providing accurate and continuous ball trajectories throughout the match. This has potential applications in sports analytics, enabling coaches and analysts to derive meaningful insights into game strategies, player performance, and match statistics.
+  The expected outcome is a robust and efficient ball tracking system capable of providing accurate and continuous ball trajectories throughout the match. This has potential applications in sports analytics, enabling coaches and analysts to derive meaningful insights into game strategies, player performance, and match statistics.
 
 ### III. Project Methods📝
 Here are the step-by-step process to achieve our goal:
@@ -286,7 +286,7 @@ for file_path in file_paths:
 ```
 ### IV. Conclusion📑📌
 
-The project, Ball Tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz using YOLO in Google Colab, successfully demonstrates the application of computer vision techniques in sports analytics. Doing this project using HSV-based object detection using OpenCV is quite difficult to implement since the video contains similar color from the ball that we are going to detect so we decided to try a different approach which is YOLO. YOLO, or "You Only Look Once", is a real-time object detection algorithm that can identify and classify objects in a single pass of an image. It's a single-stage object detector that uses a convolutional neural network (CNN) to process images. Though we are still encountering errors in detection (detects something woth the same color), YOLO still had a very accurate detection of a moving ball. 
+  The project, Ball Tracking in a Volleyball Game: Choco Mucho vs. Petro Gazz using YOLO in Google Colab, successfully demonstrates the application of computer vision techniques in sports analytics. Doing this project using HSV-based object detection using OpenCV is quite difficult to implement since the video contains similar color from the ball that we are going to detect so we decided to try a different approach which is YOLO. YOLO, or "You Only Look Once", is a real-time object detection algorithm that can identify and classify objects in a single pass of an image. It's a single-stage object detector that uses a convolutional neural network (CNN) to process images. Though we are still encountering errors in detection (detects something woth the same color), YOLO still had a very accurate detection of a moving ball. 
 
 ### V. Additional Materials📚
 
